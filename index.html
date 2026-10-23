@@ -130,12 +130,10 @@ mark{background:var(--mark);color:var(--mark-ink);border-radius:3px;padding:0 3p
       <span><b>Tier 2</b> v1.37 &middot; published 10/21/26 &middot; effective 10/21/26 &middot; 22 communities</span>
       <span>Captured from Spec Tool on Oct 23, 2026</span>
     </div>
-    <div class="tally" id="tally"></div>
   </header>
 
   <nav class="tabs" aria-label="Views">
     <div class="tabrow">
-      <a href="#diff" data-view="diff">Differences</a>
       <a href="#tier1" data-view="tier1" class="t1">Tier 1 spec</a>
       <a href="#tier2" data-view="tier2" class="t2">Tier 2 spec</a>
     </div>
@@ -149,7 +147,6 @@ mark{background:var(--mark);color:var(--mark-ink);border-radius:3px;padding:0 3p
     <div class="qrs" id="qrs"></div>
   </section>
 
-  <p class="foot">Lines are matched by what they cover, so a line that was renamed or moved to a different section (for example Data Wiring → Cable Wiring) is compared side by side. Highlighted text is what differs. A line marked "only in" may simply be documented in one spec and not the other; confirm with the spec owner before treating it as a scope difference.</p>
 </div>
 
 <script>
@@ -246,7 +243,7 @@ function renderTier(which){
   if (!any) h += `<div class="empty-state">Nothing matches that search.</div>`;
   return h;
 }
-function currentView(){ const v = (location.hash||"").replace("#",""); return ["diff","tier1","tier2"].includes(v) ? v : "diff"; }
+function currentView(){ const v = (location.hash||"").replace("#",""); return ["tier1","tier2"].includes(v) ? v : "tier1"; }
 function render(keepFocus){
   const v = currentView();
   document.querySelectorAll(".tabrow a").forEach(a=>a.setAttribute("aria-current", a.dataset.view===v ? "page" : "false"));
@@ -279,5 +276,5 @@ if (QR && QR.length){
   document.getElementById("scan").hidden = false;
   document.getElementById("qrs").innerHTML = QR.map(q=>`<div class="qr">${q.svg}<b>${esc(q.label)}</b><span>${esc(q.note)}</span></div>`).join("");
 }
-renderTally(); render();
+render();
 </script>
